@@ -1,0 +1,50 @@
+version: '3.3'
+
+services:
+  web:
+    container_name: comida.web
+    build: ./app
+    command: python /usr/src/app/manage.py runserver 0.0.0.0:8000
+    restart: always
+    volumes:
+      - ./app/:/usr/src/app/
+      #- ./app/static:/usr/src/app/static
+      # - media_volume: /usr/src/app/media
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+
+
+  db:
+    image: postgres
+    container_name: comida.db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: comsis
+      POSTGRES_DB: sistema_de_comida
+      POSTGRES_USER: christian
+    ports:
+      - "3009:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+
+  db_client:
+    image: dpage/pgadmin4
+    container_name: pgadmin_cliente
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - ./pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "80:80"
+
+volumes:
+  postgres_data:
+
+# docker run --name db.postgres.test -e POSTGRES_PASSWORD=com123 -e POSTGRES_DB=comida_db POSTGRES_USER=christian -P 3009:5432 -d postgres
+
+# para conectarme a la base de datos
+#   docker exec -ti comida.db bash
+#   psql -U christian -d sistema_de_comida
