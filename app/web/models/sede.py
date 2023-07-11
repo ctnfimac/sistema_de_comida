@@ -5,7 +5,6 @@ class Sede(models.Model):
     comercio = models.ForeignKey(Comercio, on_delete=models.RESTRICT)
     codigo = models.CharField(max_length=50, null=False)
     direccion = models.CharField(max_length=50, null=False, unique=True)
-    #TODO: agregar estos campos de abajo al DER
     calle = models.CharField(max_length=30, null=False)
     altura = models.CharField(max_length=30, null=False)
     sede_activa = models.BooleanField(default=False)
