@@ -6,3 +6,7 @@ from .repartidor import Repartidor
 from .gerente import Gerente
 from .comercio import Comercio
 from .sede import Sede
+from .producto import Producto
+from .menu import Menu
+from .pedido import Pedido
+from .pedidomenu import PedidoMenu

@@ -6,3 +6,7 @@ from .repartidorAdmin import RepartidorAdmin
 from .comercioAdmin import ComercioAdmin
 from .sedeAdmin import SedeAdmin
 from .gerenteAdmin import GerenteAdmin
+from .productoAdmin import ProductoAdmin
+from .menuAdmin import MenuAdmin
+from .pedidoAdmin import PedidoAdmin
+from .pedidomenuAdmin import PedidoMenuAdmin
