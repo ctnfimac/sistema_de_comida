@@ -1,6 +1,5 @@
 from django import forms
 
-#TODO: Agregar el campo para el checkbox
 class LoginForm(forms.Form):
     usuario = forms.EmailField(
         label='Usuario', 
@@ -17,6 +16,12 @@ class LoginForm(forms.Form):
                     'placeholder': 'ingrese su contraseña...'
                 }
         ))
+    
+    recordarme = forms.BooleanField(
+        label = 'Recordarme',
+        widget= forms.CheckboxInput(
+             attrs={
+                'class':'form-check-input',
+            }
+        ))
         
-
-

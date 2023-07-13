@@ -17,22 +17,24 @@
 					{% csrf_token %}
 					<p class="h4 mb-4 text-center">Login</p>
 					{% for field in loginForm %}
-						<div class="form-group">
-							{{ field.label_tag }} {{ field }}
-						<div>
-					{% endfor %}
-					<div class="d-flex justify-content-around">
-						<div>
-							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
-								<label class="custom-control-label" for="defaultLoginFormRemember">Recordarme</label>
+						{% if field.field.widget.input_type == "checkbox" %}
+							<div class="d-flex justify-content-around">
+								<div>
+									<div class="form-group form-check">
+										{{field}} {{field.label_tag}} 
+									</div> 
+								</div>
+								<div>
+									<a href="">Perdió su contraseña</a>
+								</div>
 							</div>
-						</div>
-						<div>
-							<a href="">Perdió su contraseña</a>
-						</div>
-					</div>
-					<button class="btn btn-info btn-block my-4" type="submit">Entrar</button>
+						{% else %}
+							<div class="form-group">
+								{{field.label_tag}}{{field}}
+							</div>
+						{% endif %}
+					{% endfor %}
+					<button class="btn btn-info btn-block m-0 mb-2" type="submit">Entrar</button>
 					<p>¿No eres miembro aún?
 						<a href="" data-toggle="modal" data-target="#modalLRFormDemo" >Registrarse</a>
 					</p>
