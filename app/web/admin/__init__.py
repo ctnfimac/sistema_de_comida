@@ -10,3 +10,7 @@ from .productoAdmin import ProductoAdmin
 from .menuAdmin import MenuAdmin
 from .pedidoAdmin import PedidoAdmin
 from .pedidomenuAdmin import PedidoMenuAdmin
+from .ofertaAdmin import OfertaAdmin
+from .entregaAdmin import EntregaAdmin
+from .liquidacionAdmin import LiquidacionAdmin
+from .gananciaAdmin import GananciaAdmin

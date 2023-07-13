@@ -10,3 +10,7 @@ from .producto import Producto
 from .menu import Menu
 from .pedido import Pedido
 from .pedidomenu import PedidoMenu
+from .oferta import Oferta
+from .entrega import Entrega
+from .liquidacion import Liquidacion
+from .ganancia import Ganancia
