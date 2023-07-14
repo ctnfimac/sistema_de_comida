@@ -164,3 +164,7 @@ cython_debug/
 # agregadi por mi
 pgadmin_data/
 postgres_data/
+
+notas.txt
+
+.vscode/

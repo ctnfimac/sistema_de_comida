@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block banner %}
+	{% include './includes/public/banner.html' %}
+{% endblock banner %}
+
+{% block main %}
+    {% include "./includes/public/servicios.html" %}
+	{% include "./includes/public/oferta_del_dia.html" %}
+	{% include "./includes/public/menus_de_comida.html" %}
+	{% include "./includes/public/contacto.html" %} 
+
+	{% include "./includes/public/registro_modal.html" %}
+{% endblock main %}
+

@@ -1,0 +1,15 @@
+{% load static %}
+{% include "./web/includes/public/head.html" %}
+
+    <header>
+		{% include "./web/includes/public/nav.html" %}
+        {% block banner %} 
+		{% endblock banner %}
+	</header>
+	
+	{% block main %} 
+	{% endblock main%}
+
+{% include "./web/includes/public/footer.html" %}
+
+
