@@ -7,7 +7,7 @@ Tecnologías utilizadas
 - Bootstrap
 
 
-#####Pasos para instalar el proyecto en tu computadora
+##### Pasos para instalar el proyecto en tu computadora
 Previamente hay que tener instalado:
 - [Git](https://git-scm.com/) 
 - [Docker](https://www.docker.com/) 
