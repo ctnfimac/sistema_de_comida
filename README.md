@@ -50,3 +50,35 @@ docker-compose stop
 ```
 docker-compose start
 ```
+
+#### Posibles Errores:
+.) Al levantar el proyecto puede suceder que en linux haya problemas con el contenedor de pgadmin4 por tema de permisos.
+mensaje del error: 
+``` Permission denied: '/var/lib/pgadmin/sessions' ```
+##### Soluciones:
+
+Una solución es agregar la siguiente linea de código a la configuración del pgadmin del docker-compose.yml 
+``` user: root ``` 
+quedando así
+```
+  db_client:
+    image: dpage/pgadmin4
+    container_name: comida.cliente_db
+    user: root
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - ./pgadmin_data:/var/lib/pgadmin4
+    ports:
+      - "80:80"
+ ```
+Otra posible solución:
+ ```
+ modificar:  ./pgadmin_data:/var/lib/pgadmin
+ por:        ./pgadmin_data:/var/lib/pgadmin4/storage
+ ```
+
+ una vez hecho estos cambios eliminar el contenedor, imagenes y los volumenes
+ para levantarlo nuevamente con **docker-compose up [-d]**
+
