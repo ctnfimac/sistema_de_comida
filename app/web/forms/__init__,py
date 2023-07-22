@@ -1,2 +1,0 @@
-from .contactoForm import ContactoForm
-from .loginForm import LoginForm

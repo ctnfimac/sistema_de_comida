@@ -26,7 +26,6 @@ class ContactoForm(forms.Form):
         widget = forms.Select(
             attrs={
                 'class':'form-control rounded-0',
-                'placeholder': 'escriba su mensaje...'
             }
         )  
     )
