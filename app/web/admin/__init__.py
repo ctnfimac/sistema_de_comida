@@ -14,3 +14,4 @@ from .ofertaAdmin import OfertaAdmin
 from .entregaAdmin import EntregaAdmin
 from .liquidacionAdmin import LiquidacionAdmin
 from .gananciaAdmin import GananciaAdmin
+from .tipoAdmin import TipoAdmin
