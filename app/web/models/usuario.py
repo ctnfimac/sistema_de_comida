@@ -12,7 +12,7 @@ class Usuario(models.Model):
     fecha_alta = models.DateTimeField(auto_now_add=True, blank=True)
     fecha_activacion = models.DateTimeField(null=True, blank=True)
     fecha_modificacion = models.DateTimeField(auto_now=True, null=True)
-    tipo = models.ForeignKey(Tipo, on_delete=models.RESTRICT, default=1)
+    tipo = models.ForeignKey(Tipo, on_delete=models.RESTRICT, default=0)
 
 
     class Meta:

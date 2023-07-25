@@ -1,8 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.views import View
+
+from .models.usuario import Usuario
+from .models.tipo import Tipo
+
 # from .forms import LoginForm
 from web.forms.loginForm import LoginForm
 from web.forms.contactoForm import ContactoForm
 from web.forms.registroForm import RegistroForm
+
+from django.db import IntegrityError
 
 
 def home(request):
@@ -43,3 +51,46 @@ def clienteAdmin(request):
         'title': 'Cliente Admin'
     }
     return render(request, 'admin/cliente.html', context)
+
+########################
+#
+# Usuarios: Registro
+#
+########################
+
+# con método
+def usuarioCrud(request):
+    try:
+        if request.method == 'POST':
+            email = request.POST.get('email','')
+            contrasenia = request.POST.get('password','')
+            telefono = request.POST.get('telefono','')
+            tipo = Tipo.objects.get(pk = int(request.POST.get('tipo','')))
+            
+            usuarioNuevo = Usuario(
+                tipo= tipo, 
+                email= email, 
+                telefono= telefono, 
+                contrasenia= contrasenia
+            )
+            usuarioNuevo.save()
+        
+        elif request.method == 'GET':
+            print('Estoy en el GET')
+
+        else:
+            print('tipo de peticion desconocida')
+        
+    except IntegrityError:
+        print('Problemas al querer dar de alta el usuario')
+    finally:
+        return redirect(reverse('web:home'))
+    
+    
+# class UsuarioView(View):
+    
+#     def get(self, request):
+#         print('ESTOY EN GET')
+
+#     def post(self, request):
+#         print('ESTOY EN POST')
