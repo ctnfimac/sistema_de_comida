@@ -7,20 +7,16 @@ class UsuarioModelTest(TestCase):
 
     def setUp(self):
         # Creo los 3 tipos de usuario que necesito para testear al usuario
-        tipo1 = Tipo(titulo='Cliente')
-        tipo1.save()
-        tipo2 = Tipo(titulo='Delivery')
-        tipo2.save()
-        tipo3 = Tipo(titulo='Comercio')
-        tipo3.save()
+        self.tipo1 = Tipo.objects.create(titulo='Cliente')
+        self.tipo2 = Tipo.objects.create(titulo='Delivery')
+        self.tipo3 = Tipo.objects.create(titulo='Comercio')
 
-
-    # usuarioCrud
     def test_registro_usuario(self):
-        url = reverse('web:usuarioCrud')
+        url = reverse('web:registroView')
         datos = {
             'email': 'test@christianperalta.com', 
-            'password': 'micontrasenia',
+            'contrasenia': 'micontrasenia',
+            'password2': 'micontrasenia',
             'telefono': '1144445555', 
             'tipo': '2'
         }
@@ -28,24 +24,17 @@ class UsuarioModelTest(TestCase):
 
         # verifico que redireccione a la pagina que quiero
         self.assertRedirects(response, reverse('web:home'))
-        
-        # verifico que tenga el codigo de redirección correcto
-        self.assertEqual(response.status_code, 302)
 
-        tipo = Tipo.objects.get(pk=2)
-        # verifico que el tipo a verificar sea el correcto
-        self.assertEqual(tipo.titulo,'Delivery')
+        # Verificar que se creo un usuario nuevo
+        self.assertEqual(Usuario.objects.count(), 1)
 
+        # Verificar que los datos ingrasados se guardan correctamente
         usuarios_creados = Usuario.objects.filter(
             email= 'test@christianperalta.com', 
             contrasenia= 'micontrasenia',
             telefono= '1144445555', 
-            tipo= tipo
+            tipo= self.tipo2
         )
-
-        # Verificar que se creo un usuario nuevo
-        self.assertEqual(usuarios_creados.count(), 1)
-   
         usuario_obtenido = usuarios_creados.first()
 
         # Verificar que los valores de los campos sean los correctos
