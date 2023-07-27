@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views
-from .views import RegistroView
 
 app_name = 'web'
 
@@ -11,5 +10,5 @@ urlpatterns = [
     path("repartidoradmin", views.repartidorAdmin, name="repartidorAdmin"),
     path("clienteadmin", views.clienteAdmin, name="clienteAdmin"),
 
-    path("registroView", RegistroView.as_view(), name='registroView')
+    path("registroView", views.RegistroView.as_view(), name='registroView')
 ]

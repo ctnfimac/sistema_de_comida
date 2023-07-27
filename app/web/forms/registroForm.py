@@ -36,3 +36,9 @@ class RegistroForm(forms.ModelForm):
             'placeholder': 'ingrese su Contraseña...'
         })
         
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        obj = Usuario.objects.create(email=instance.email, contrasenia=instance.contrasenia, telefono=instance.telefono, tipo=instance.tipo )
+        if commit:
+            obj.save()
+        return obj

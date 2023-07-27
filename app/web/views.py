@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
+from django.views.generic import FormView
 from django.http import HttpResponseRedirect
 
 from web.forms.loginForm import LoginForm
@@ -53,20 +54,11 @@ def clienteAdmin(request):
 #
 ########################
 
-# con view
-class RegistroView(View):
+class RegistroView(FormView):
     form_class = RegistroForm
     template_name = reverse_lazy('web:home')
+    success_url = reverse_lazy('web:home')
 
-    def post(self, request):
-        form = self.form_class(request.POST)
-        context = {
-                'loginForm': LoginForm(),
-                'contactoForm': ContactoForm(),
-                'registroForm': form
-            }
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(self.template_name)
-        
-        return render(request, self.template_name, context)
+    def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect(self.success_url)
