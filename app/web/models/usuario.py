@@ -5,7 +5,7 @@ class Usuario(models.Model):
     nombre = models.CharField(max_length=30, null=False)
     apellido = models.CharField(max_length=30, null=False)
     email = models.EmailField(max_length=50, null=False, unique=True)
-    contrasenia = models.CharField(max_length=50, null=False)
+    contrasenia = models.CharField(max_length=128, null=False)
     telefono = models.CharField(max_length=30, null=False)
     habilitado = models.BooleanField(default=False)
     cuenta_activada = models.BooleanField(default=False)

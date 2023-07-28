@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.hashers import make_password
 from web.models.usuario import Usuario
 
 
@@ -38,7 +39,14 @@ class RegistroForm(forms.ModelForm):
         
     def save(self, commit=True):
         instance = super().save(commit=False)
-        obj = Usuario.objects.create(email=instance.email, contrasenia=instance.contrasenia, telefono=instance.telefono, tipo=instance.tipo )
+
+        obj = Usuario.objects.create(
+            email=instance.email, 
+            contrasenia=make_password(instance.contrasenia), 
+            telefono=instance.telefono, 
+            tipo=instance.tipo 
+        )
+        
         if commit:
             obj.save()
         return obj

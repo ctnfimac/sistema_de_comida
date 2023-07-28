@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
+from django.contrib.auth.hashers import check_password
 from web.models.usuario import Usuario
 from web.models.tipo import Tipo
 
@@ -28,17 +29,18 @@ class UsuarioModelTest(TestCase):
         # Verificar que se creo un usuario nuevo
         self.assertEqual(Usuario.objects.count(), 1)
 
-        # Verificar que los datos ingrasados se guardan correctamente
+        # Verificar que los datos ingresados se guardaron correctamente
+       
         usuarios_creados = Usuario.objects.filter(
-            email= 'test@christianperalta.com', 
-            contrasenia= 'micontrasenia',
-            telefono= '1144445555', 
-            tipo= self.tipo2
+            email= 'test@christianperalta.com'
         )
         usuario_obtenido = usuarios_creados.first()
 
-        # Verificar que los valores de los campos sean los correctos
         self.assertEqual(usuario_obtenido.tipo.titulo, 'Delivery')
         self.assertEqual(usuario_obtenido.email, 'test@christianperalta.com')
         self.assertEqual(usuario_obtenido.telefono, '1144445555')
-        self.assertEqual(usuario_obtenido.contrasenia, 'micontrasenia')
+        self.assertTrue(check_password('micontrasenia',usuario_obtenido.contrasenia))
+       
+    
+    def test_registro_usuario_unico(self):
+        pass
