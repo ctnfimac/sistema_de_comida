@@ -20,6 +20,10 @@ class RegistroForm(forms.ModelForm):
         model = Usuario
         fields = ['tipo', 'email', 'telefono','contrasenia']
 
+    
+    class Media:
+        js = ('js/web/forms/registroForm.js',)
+
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -50,3 +54,15 @@ class RegistroForm(forms.ModelForm):
         if commit:
             obj.save()
         return obj
+
+    #TODO: Mejorar
+    def clean_contrasenia(self):
+        #print(self.cleaned_data['contrasenia'])
+        # print(self.cleaned_data['password2'])
+        #print(self)
+        #print(self['password2'].value())
+        if self.cleaned_data['contrasenia'] != self['password2'].value():
+            self.add_error('password2', 'Los passwords no son los mismos')
+            #raise forms.ValidationError("Error")
+        return self.cleaned_data['contrasenia']
+    

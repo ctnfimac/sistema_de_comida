@@ -9,6 +9,7 @@ urlpatterns = [
     path("comercioadmin", views.comercioAdmin, name="comercioAdmin"),
     path("repartidoradmin", views.repartidorAdmin, name="repartidorAdmin"),
     path("clienteadmin", views.clienteAdmin, name="clienteAdmin"),
+    path("registroRealizado/<str:email>", views.registroRealizado, name="registroRealizado"),
 
     path("registroView", views.RegistroView.as_view(), name='registroView')
 ]

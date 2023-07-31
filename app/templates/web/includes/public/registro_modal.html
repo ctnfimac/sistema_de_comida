@@ -15,11 +15,13 @@
             </ul>
             <!-- Tab panels -->
             <div class="tab-content">
+            <span class="close">&times;</span>
+            <div id="mensajeErrorRegistro"></div>
             <!--Panel 17-->
             <div class="tab-pane fade in show active" id="panel17" role="tabpanel">
                 <!--Body-->
                 <div class="modal-body mb-1">
-                    <form action="{% url 'web:registroView' %}" method="POST"> {% csrf_token %}
+                    <form id="registroForm" action="{% url 'web:registroView' %}" method="POST"> {% csrf_token %}
                         <div class="md-form form-sm">
                             {{ registroForm.tipo}}
                         </div>	   
@@ -44,7 +46,7 @@
                             <button class="btn waves-effect btn-deep-orange">Registrarse
                             <i class="fa fa-sign-in ml-1"></i>
                             </button>
-                            <button class="btn btn-info waves-effect " data-dismiss="modal" aria-label="Close" class="">Salir
+                            <button type="submit" class="btn btn-info waves-effect " data-dismiss="modal" aria-label="Close" class="">Salir
                                 <i class="fa fa-sign-noutml-1"></i>
                             </button>
                         </div>
@@ -57,4 +59,4 @@
         <!--/.Content-->
     </div>
 </div>
-<!-- {{registroForm.media}} -->
+{{registroForm.media}}
