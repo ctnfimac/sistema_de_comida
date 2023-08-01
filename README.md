@@ -5,6 +5,7 @@ Tecnologías utilizadas
 - Django
 - Postgres
 - Bootstrap
+- Javascript
 
 
 ##### Pasos para instalar el proyecto en tu computadora
@@ -50,6 +51,12 @@ docker-compose stop
 ```
 docker-compose start
 ```
+
+##### Ejecutar test unitarios
+```
+docker exec comida.web python manage.py test
+```
+
 
 #### Posibles Errores:
 .) Al levantar el proyecto puede suceder que en linux haya problemas con el contenedor de pgadmin4 por tema de permisos.
