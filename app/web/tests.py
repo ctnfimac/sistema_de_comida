@@ -8,14 +8,28 @@ import json
 
 class UsuarioModelTest(TestCase):
 
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         # Creo los 3 tipos de usuario que necesito para testear al usuario
-        self.tipo1 = Tipo.objects.create(titulo='Cliente')
-        self.tipo2 = Tipo.objects.create(titulo='Delivery')
-        self.tipo3 = Tipo.objects.create(titulo='Comercio')
+        cls.tipo1 = Tipo.objects.create(titulo='Cliente')
+        cls.tipo2 = Tipo.objects.create(titulo='Delivery')
+        cls.tipo3 = Tipo.objects.create(titulo='Comercio')
 
-    def test_registro_usuario(self):
+        cls.url_registroUsuario = reverse('web:registroView')
+
+        # creo un usuario para la prueba de registro incorrecto
+        cls.usuario_nuevo = Usuario(email = 'info@gmail.com',
+                                    contrasenia = '123',
+                                    telefono = '44446666',
+                                    tipo = cls.tipo1)
+        cls.usuario_nuevo.save()
+
+
+
+    def test_registro_usuario_valido(self):
         url = reverse('web:registroView')
+
+        # hago una solicitud post con datos correctos
         datos = {
             'email': 'test@christianperalta.com', 
             'contrasenia': 'micontrasenia',
@@ -30,7 +44,7 @@ class UsuarioModelTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
         # Verificar que se creo un usuario nuevo
-        self.assertEqual(Usuario.objects.count(), 1)
+        self.assertEqual(Usuario.objects.count(), 2)
 
         # verifico que la respuesta es la esperada
         self.assertEqual(response_data['success'], True)
@@ -49,6 +63,41 @@ class UsuarioModelTest(TestCase):
         self.assertEqual(usuario_obtenido.telefono, '1144445555')
         self.assertTrue(check_password('micontrasenia',usuario_obtenido.contrasenia))
        
+
     
-    def test_registro_usuario_unico(self):
-        pass
+    def test_registro_usuario_no_valido(self):
+        """
+        Pruebo que no se guarde registro cuando las contraseñas no son iguales,
+        también cuando el email ingresado es uno ya existente
+        """
+        url = reverse('web:registroView')
+
+        # hago una solicitud post con contraseñas distintas
+        datos = {
+            'email': 'test@christianperalta.com', 
+            'contrasenia': 'micontraseniaMal',
+            'password2': 'micontrasenia',
+            'telefono': '1144445555', 
+            'tipo': '2'
+        }
+        response = self.client.post(url, datos)
+
+        # verifico el código de estado
+        self.assertEqual(response.status_code, 400)
+
+        # hago una solicitud post con email repetido
+        datos = {
+            'email': 'info@gmail.com', 
+            'contrasenia': 'micontrasenia',
+            'password2': 'micontrasenia',
+            'telefono': '1144445555', 
+            'tipo': '2'
+        }
+        response = self.client.post(url, datos)
+
+        # verifico el código de estado
+        self.assertEqual(response.status_code, 400)
+
+        # verifico que siga habiendo un solo usuario cargado
+        self.assertEqual(Usuario.objects.count(),1)
+

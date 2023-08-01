@@ -55,14 +55,8 @@ class RegistroForm(forms.ModelForm):
             obj.save()
         return obj
 
-    #TODO: Mejorar
     def clean_contrasenia(self):
-        #print(self.cleaned_data['contrasenia'])
-        # print(self.cleaned_data['password2'])
-        #print(self)
-        #print(self['password2'].value())
         if self.cleaned_data['contrasenia'] != self['password2'].value():
-            self.add_error('password2', 'Los passwords no son los mismos')
-            #raise forms.ValidationError("Error")
+            self.add_error('password2', 'Las contraseñas no son iguales.')
         return self.cleaned_data['contrasenia']
     

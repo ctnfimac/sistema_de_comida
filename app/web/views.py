@@ -73,22 +73,7 @@ class RegistroView(FormView):
         return JsonResponse({'success': True, 'email': form.cleaned_data['email']})
 
     def form_invalid(self, form) -> HttpResponse:
-        #TODO: VAlidar error cuando hay contraseñas distintas
-         # validar error si el usuario ya existe
-         # validar error si el email no es valido
-        #print('ERROR')
-        #print(form)
-        #return super().form_invalid(form)
-        # return HttpResponse("form is invalid.. this is just an HttpResponse object")
-        # context = {
-        #     'loginForm': LoginForm(),
-        #     'contactoForm': ContactoForm,
-        #     'registroForm': form
-        # }
-        # return render('web/home.html', context)
-        #return HttpResponseRedirect(reverse_lazy('web:home', kwargs={'registroForm':form.__dict__}))
-        errors = form.errors.as_json()
-        #print(errors)
+        #TODO:validar error si el email no es correcto
+        errors = form.errors
         return JsonResponse({'errors': errors}, status=400)
-        #return JsonResponse({'status': False}, status=500)
     
