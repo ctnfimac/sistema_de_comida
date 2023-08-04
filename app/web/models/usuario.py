@@ -13,7 +13,7 @@ class Usuario(models.Model):
     fecha_activacion = models.DateTimeField(null=True, blank=True)
     fecha_modificacion = models.DateTimeField(auto_now=True, null=True)
     tipo = models.ForeignKey(Tipo, on_delete=models.RESTRICT, default=0)
-
+    key_activacion = models.CharField(max_length=128,null=False, default='')
 
     class Meta:
         app_label = 'web'

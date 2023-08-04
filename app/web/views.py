@@ -71,12 +71,13 @@ class RegistroView(FormView):
     success_url = reverse_lazy('web:home')
 
     def form_valid(self, form):
-        form.save()
-        #TODO: Armar link de validación con alguna key de validación
-        # la key se puede armar con la fecha de alta y el email del usuario
+        registro_nuevo = form.save()
+
+        url_activacion = 'http://127.0.0.1:8000/web/activarCuenta/{clave_activacion}/'.format(clave_activacion=registro_nuevo.key_activacion)
+        msj = f"Gracias por registrarse, para activar su cuenta ingrese al siguiente link {url_activacion}"
         send_mail(
-            "Gracias por registrarse",
-            "TEsteando el envio de emails 3.",
+            "Activación de la cuenta",
+            msj,
             settings.ADMIN_USER_EMAIL,
             [form.cleaned_data['email']],
             fail_silently=False,

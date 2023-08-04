@@ -1,4 +1,5 @@
 from django import forms
+from django.core.signing import Signer
 from django.contrib.auth.hashers import make_password
 from web.models.usuario import Usuario
 
@@ -44,11 +45,15 @@ class RegistroForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
+        signer = Signer()
+        key_activacion = signer.sign_object({"key_activacion": instance.email})
+
         obj = Usuario.objects.create(
             email=instance.email, 
             contrasenia=make_password(instance.contrasenia), 
             telefono=instance.telefono, 
-            tipo=instance.tipo 
+            tipo=instance.tipo,
+            key_activacion=key_activacion 
         )
         
         if commit:
