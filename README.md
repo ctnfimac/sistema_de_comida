@@ -42,12 +42,17 @@ docker ps
  http://127.0.0.1:8000/web/
 ```
 
-6) para detener los contenedores
+6) Renombro el archivo de las **variables de entorno**, previo a esto tengo que completar los datos de dicho archivo
+```
+  mv app/._env app/.env
+```
+
+7) para detener los contenedores
 ```
 docker-compose stop
 ```
 
-6) para iniciar los contenedores
+8) para iniciar los contenedores
 ```
 docker-compose start
 ```

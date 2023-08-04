@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.http import HttpResponse
@@ -8,6 +9,7 @@ from web.forms.loginForm import LoginForm
 from web.forms.contactoForm import ContactoForm
 from web.forms.registroForm import RegistroForm
 
+from django.core.mail import send_mail
 
 
 def home(request):
@@ -70,10 +72,17 @@ class RegistroView(FormView):
 
     def form_valid(self, form):
         form.save()
+        #TODO: Armar link de validación con alguna key de validación
+        # la key se puede armar con la fecha de alta y el email del usuario
+        send_mail(
+            "Gracias por registrarse",
+            "TEsteando el envio de emails 3.",
+            settings.ADMIN_USER_EMAIL,
+            [form.cleaned_data['email']],
+            fail_silently=False,
+        )
         return JsonResponse({'success': True, 'email': form.cleaned_data['email']})
 
     def form_invalid(self, form) -> HttpResponse:
-        #TODO:validar error si el email no es correcto
         errors = form.errors
         return JsonResponse({'errors': errors}, status=400)
-    
