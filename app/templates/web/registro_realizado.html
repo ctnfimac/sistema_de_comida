@@ -1,0 +1,12 @@
+{% extends 'base_admin.html' %}
+{% load static %}
+
+{% block banner %}
+	{% include './includes/public/banner.html' %}
+{% endblock banner %}
+
+{% block main %}
+    <h1>Felicitaciones <b>{{ email }}</b> por registrarse en nuestra plataforma. Se le ha enviado un correo para activar la cuena</h1>
+    <a href="{% url 'web:home' %}">Regresar al inicio</a>
+{% endblock main %}
+

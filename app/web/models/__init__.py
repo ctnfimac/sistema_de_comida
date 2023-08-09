@@ -14,3 +14,4 @@ from .oferta import Oferta
 from .entrega import Entrega
 from .liquidacion import Liquidacion
 from .ganancia import Ganancia
+from .tipo import Tipo

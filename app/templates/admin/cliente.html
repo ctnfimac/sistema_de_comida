@@ -1,0 +1,17 @@
+{% extends 'base_admin.html' %}
+{% load static %}
+
+{% block main %}
+	{% include './includes/nav_top.html' %}  
+	{% include './includes/nav_left.html' %}  		  
+    
+    <div class="container-fluid">
+            
+        {% include './includes/titulo_superior.html' %}  		  
+        {% include './includes/cards.html' %}  		    
+        {% include './includes/tabla.html' %} 	
+
+    </div>
+    <!-- /.container-fluid -->
+		  
+{% endblock main %}
