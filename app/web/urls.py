@@ -1,16 +1,32 @@
 from django.urls import path
-from . import views
+from web.views.public_views import home
+from web.views.registro_views import (
+    RegistroView, 
+    activarCuenta,
+    registroRealizado
+)
+
+from web.views.administracion_views import (
+    administracion,
+    comercioAdmin,
+    repartidorAdmin,
+    clienteAdmin
+)
 
 app_name = 'web'
 
 urlpatterns = [
-    path("", views.home, name="home"),
-    path("administracion", views.administracion, name="administracion"),
-    path("comercioadmin", views.comercioAdmin, name="comercioAdmin"),
-    path("repartidoradmin", views.repartidorAdmin, name="repartidorAdmin"),
-    path("clienteadmin", views.clienteAdmin, name="clienteAdmin"),
-    path("registroRealizado/<str:email>", views.registroRealizado, name="registroRealizado"),
-    path("activarCuenta/<str:key>", views.activarCuenta, name="activarCuenta"),
+    # public
+    path("", home, name="home"),
 
-    path("registroView", views.RegistroView.as_view(), name='registroView')
+    # Administración
+    path("administracion", administracion, name="administracion"),
+    path("comercioadmin", comercioAdmin, name="comercioAdmin"),
+    path("repartidoradmin", repartidorAdmin, name="repartidorAdmin"),
+    path("clienteadmin", clienteAdmin, name="clienteAdmin"),
+
+    # Registro de usuarios
+    path("registroRealizado/<str:email>", registroRealizado, name="registroRealizado"),
+    path("activarCuenta/<str:key>", activarCuenta, name="activarCuenta"),
+    path("registroView", RegistroView.as_view(), name='registroView')
 ]
